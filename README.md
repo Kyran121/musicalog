@@ -12,6 +12,12 @@
 
 - Docker - this project requires running a compose file to start up
 
+## What I would have done with more time:
+
+- Added existence check to prevent duplicate albums 
+- Implemented transactional testing to ensure create/update album journeys are atomic
+- Added logging to aid debugging
+
 ## Architecture
 
 You can view my planning for this microservice in this [LucidCharts doc](https://lucid.app/lucidchart/500963f7-93fb-4da4-b8d1-ffa05fc87b88/edit?viewport_loc=808%2C1055%2C2681%2C2757%2C0_0&invitationId=inv_170a0e28-c9af-45b7-be99-8d5ffb73ed72)
