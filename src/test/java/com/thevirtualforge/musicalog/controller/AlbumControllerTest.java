@@ -46,6 +46,7 @@ public class AlbumControllerTest {
     void getAlbums_returnsAllAlbumsGivenNoFilters() throws Exception {
         doReturn(List.of(
             AlbumDTO.builder()
+                .id("01")
                 .title("For All The Dogs")
                 .artistName("Drake")
                 .type(AlbumType.CD.name())
@@ -53,6 +54,7 @@ public class AlbumControllerTest {
                 .coverImageUrl("s3://image-store/1.jpeg")
                 .build(),
             AlbumDTO.builder()
+                .id("02")
                 .title("Scorpion")
                 .artistName("Adonis")
                 .type(AlbumType.VINYL.name())
@@ -67,14 +69,14 @@ public class AlbumControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(2)))
 
-            .andExpect(jsonPath("$[0].id").doesNotExist())
+            .andExpect(jsonPath("$[0].id").value("01"))
             .andExpect(jsonPath("$[0].title").value("For All The Dogs"))
             .andExpect(jsonPath("$[0].artistName").value("Drake"))
             .andExpect(jsonPath("$[0].type").value("CD"))
             .andExpect(jsonPath("$[0].stock").value("1"))
             .andExpect(jsonPath("$[0].coverImageUrl").value("s3://image-store/1.jpeg"))
 
-            .andExpect(jsonPath("$[1].id").doesNotExist())
+            .andExpect(jsonPath("$[1].id").value("02"))
             .andExpect(jsonPath("$[1].title").value("Scorpion"))
             .andExpect(jsonPath("$[1].artistName").value("Adonis"))
             .andExpect(jsonPath("$[1].type").value("VINYL"))
@@ -86,6 +88,7 @@ public class AlbumControllerTest {
     void getAlbums_returnsAlbumsMatchingFilterGivenFilter() throws Exception {
         doReturn(List.of(
             AlbumDTO.builder()
+                .id("01")
                 .title("For All The Dogs")
                 .artistName("Drake")
                 .type(AlbumType.CD.name())
@@ -103,7 +106,7 @@ public class AlbumControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(1)))
 
-            .andExpect(jsonPath("$[0].id").doesNotExist())
+            .andExpect(jsonPath("$[0].id").value("01"))
             .andExpect(jsonPath("$[0].title").value("For All The Dogs"))
             .andExpect(jsonPath("$[0].artistName").value("Drake"))
             .andExpect(jsonPath("$[0].type").value("CD"))
@@ -363,6 +366,7 @@ public class AlbumControllerTest {
         final String key = "01";
 
         doReturn(AlbumDTO.builder()
+            .id("01")
             .title("For All The Dogs")
             .artistName("Drake")
             .type(AlbumType.CD.name())
@@ -373,7 +377,7 @@ public class AlbumControllerTest {
 
         mockMvc.perform(get("/api/albums/" + key))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id").doesNotExist())
+            .andExpect(jsonPath("$.id").value(key))
             .andExpect(jsonPath("$.title").value("For All The Dogs"))
             .andExpect(jsonPath("$.artistName").value("Drake"))
             .andExpect(jsonPath("$.type").value("CD"))

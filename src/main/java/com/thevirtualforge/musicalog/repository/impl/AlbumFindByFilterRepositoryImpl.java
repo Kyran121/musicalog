@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,11 +25,13 @@ public class AlbumFindByFilterRepositoryImpl implements AlbumFindByFilterReposit
         Query query = new Query();
 
         if (filter.getArtistName() != null) {
-            query.addCriteria(Criteria.where(Album.ARTIST_NAME).regex(filter.getArtistName(), CASE_INSENSITIVE));
+            query.addCriteria(Criteria.where(Album.ARTIST_NAME)
+                .regex("^" + Pattern.quote(filter.getArtistName()) + "$", CASE_INSENSITIVE));
         }
 
         if (filter.getTitle() != null) {
-            query.addCriteria(Criteria.where(Album.TITLE).regex(filter.getTitle(), CASE_INSENSITIVE));
+            query.addCriteria(Criteria.where(Album.TITLE)
+                .regex(Pattern.quote(filter.getTitle()), CASE_INSENSITIVE));
         }
 
         return mongoTemplate.find(query, Album.class);

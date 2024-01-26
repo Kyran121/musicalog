@@ -78,7 +78,7 @@ public class AlbumRepositoryTest {
     }
 
     @Test
-    void findBy_artistName() {
+    void findBy_fullArtistNameMatch() {
         assertThat(albumRepository.findBy(AlbumFilterDTO.builder().artistName("drake").build()))
             .usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration.builder()
                 .withIgnoredFields("id")
@@ -94,7 +94,15 @@ public class AlbumRepositoryTest {
     }
 
     @Test
-    void findBy_title() {
+    void findBy_partialSearchNotSupportedForArtistName() {
+        assertThat(albumRepository.findBy(AlbumFilterDTO.builder().artistName("rak").build()))
+            .usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration.builder()
+                .withIgnoredFields("id")
+                .build()).isEmpty();
+    }
+
+    @Test
+    void findBy_fullTitleMatch() {
         assertThat(albumRepository.findBy(AlbumFilterDTO.builder().title("scorpion").build()))
             .usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration.builder()
                 .withIgnoredFields("id")
@@ -106,6 +114,22 @@ public class AlbumRepositoryTest {
                     .type(AlbumType.VINYL)
                     .stock(1)
                     .coverImageUrl("s3://image-store/2.jpeg")
+                    .build()));
+    }
+
+    @Test
+    void findBy_partialTitleMatch() {
+        assertThat(albumRepository.findBy(AlbumFilterDTO.builder().title("all the").build()))
+            .usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration.builder()
+                .withIgnoredFields("id")
+                .build())
+            .containsExactlyElementsOf(List.of(
+                Album.builder()
+                    .title("For All The Dogs")
+                    .artistName("Drake")
+                    .type(AlbumType.CD)
+                    .stock(1)
+                    .coverImageUrl("s3://image-store/1.jpeg")
                     .build()));
     }
 }

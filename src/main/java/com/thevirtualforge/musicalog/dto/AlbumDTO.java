@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
-@Builder
+@Builder(toBuilder = true)
 public class AlbumDTO {
     private String id;
     private String title;
