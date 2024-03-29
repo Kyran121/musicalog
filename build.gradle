@@ -32,15 +32,16 @@ dependencies {
     implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
 
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-    testImplementation "org.testcontainers:testcontainers:1.19.3"
-    testImplementation "org.testcontainers:junit-jupiter:1.19.3"
-    testImplementation "org.testcontainers:mongodb:1.19.3"
-    testImplementation "org.testcontainers:localstack:1.19.3"
+    testImplementation "org.testcontainers:testcontainers"
+    testImplementation "org.testcontainers:junit-jupiter"
+    testImplementation "org.testcontainers:mongodb"
+    testImplementation "org.testcontainers:localstack"
 
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
