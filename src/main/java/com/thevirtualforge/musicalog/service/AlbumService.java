@@ -7,6 +7,7 @@ import com.thevirtualforge.musicalog.dto.AlbumPayloadDTO;
 import java.util.List;
 
 public interface AlbumService {
+
     List<AlbumDTO> getAllAlbums();
 
     AlbumDTO getAlbum(final String key);
