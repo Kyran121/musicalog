@@ -13,6 +13,7 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AlbumMapper {
+
     List<AlbumDTO> albumsToAlbumDTOs(List<Album> albums);
 
     AlbumDTO albumToAlbumDTO(Album album);
